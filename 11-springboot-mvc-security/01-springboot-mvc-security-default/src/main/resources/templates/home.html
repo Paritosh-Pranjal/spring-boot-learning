@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Learn Springboot Company Home Page</title>
+</head>
+<body>
+<h2>Company Home Page Yoohoooo!!!</h2>
+<hr>
+<p>
+    Welcome to Learn Springboot Company Home Page
+</p>
+
+<hr>
+<!-- Display User name and role -->
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br><br>
+    Role: <span sec:authentication="principal.authorities"></span>
+</p>
+
+<hr>
+<!-- Add a link to point to /leaders.... this is for the managers -->
+<!-- // check the syntax for hasRole , it has '', not "" -->
+<div sec:authorize="hasRole('MANAGER')">
+    <p>
+        <a th:href="@{/leaders}">Leadership Manager</a>
+        (Only for the managers peeps)
+    </p>
+</div>
+
+<!-- Add a link to point to /systems.... this is for the admins -->
+<!-- // check the syntax for hasRole , it has '', not "" -->
+<div sec:authorize="hasRole('ADMIN')">
+    <p>
+        <a th:href="@{/systems}">IT System Meeting</a>
+        (Only for the admin peeps)
+    </p>
+</div>
+
+<!-- Add a logout button -->
+<form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Logout"/>
+</form>
+
+</body>
+</html>
